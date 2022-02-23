@@ -74,14 +74,6 @@ const playersInfo = [ {
                 res.send({playersInfo})
             }
 
-            // if(playersInfo[i].name != nameInfo) {
-            //     playersInfo.push(input)
-            //     console.log(input)
-            //     res.send(playersInfo)
-            // } else {
-            //     res.send("name already exists")
-            //     break;
-            // }
         }
     })
     router.post('/players/:playerName/bookings/:bookingId', function(req, res) {
