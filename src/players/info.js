@@ -13,8 +13,8 @@ const playersInfo = [ {
             centerId: "",
             type: "private",
             slot: 16286598000000,
-            bookedOn: 31/08/2021,
-            bookedFor: 01/09/2021
+            bookedOn: "31/08/2021",
+            bookedFor: "01/09/2021"
         },
         {
             bookingNumber: 2,
@@ -22,8 +22,8 @@ const playersInfo = [ {
             centerId: "",
             type: "private",
             slot: 16286518000000,
-            bookedOn: 31/08/2001,
-            bookedFor: 01/09/2001
+            bookedOn: "31/08/2001",
+            bookedFor: "01/09/2001"
         } ]
     },
     {
@@ -46,8 +46,8 @@ const playersInfo = [ {
             centerId: "",
             type: "private",
             slot: 16284567000000,
-            bookedOn: 31/01/2022,
-            bookedFor: 31/05/2022
+            bookedOn: "31/01/2022",
+            bookedFor: "31/05/2022"
         } ]
     },
     {
@@ -59,13 +59,13 @@ const playersInfo = [ {
         bookings: []
     } 
 ]
-    router.post('/players/:name/:bookings', function(req, res) {
+    router.post('/players/:name', function(req, res) {
         let nameInfo = req.params.name
-        let bookingInfo = req.params.bookings
+        // let bookingInfo = req.params.bookings
 
         let input = {}
         input.name = nameInfo
-        input.bookings = bookingInfo
+        // input.bookings = bookingInfo
 
         for(let i=0; i<playersInfo.length; i++) {
             if(playersInfo[i].name != nameInfo) {
