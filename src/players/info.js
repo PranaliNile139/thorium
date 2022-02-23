@@ -61,21 +61,28 @@ const playersInfo = [ {
 ]
     router.post('/players/:name', function(req, res) {
         let nameInfo = req.params.name
-        // let bookingInfo = req.params.bookings
 
-        let input = {}
-        input.name = nameInfo
-        // input.bookings = bookingInfo
+        let input = req.body.newInfo
+        // input.name = nameInfo
 
         for(let i=0; i<playersInfo.length; i++) {
-            if(playersInfo[i].name != nameInfo) {
+            if(nameInfo === playersInfo[i].name) {
+                console.log("Data already exist")
+                res.send("Data already exists")
+            } else if (i === playersInfo.length - 1) {
                 playersInfo.push(input)
                 console.log(input)
-                res.send(playersInfo)
-            } else {
-                res.send("name already exists")
-                break;
+                res.send({playersInfo})
             }
+
+            // if(playersInfo[i].name != nameInfo) {
+            //     playersInfo.push(input)
+            //     console.log(input)
+            //     res.send(playersInfo)
+            // } else {
+            //     res.send("name already exists")
+            //     break;
+            // }
         }
     })
     router.post('/players/:playerName/bookings/:bookingId', function(req, res) {
