@@ -61,9 +61,8 @@ const playersInfo = [ {
 ]
     router.post('/players/:name', function(req, res) {
         let nameInfo = req.params.name
-
         let input = req.body.newInfo
-        // input.name = nameInfo
+        input.name = nameInfo
 
         for(let i=0; i<playersInfo.length; i++) {
             if(nameInfo === playersInfo[i].name) {
@@ -71,7 +70,7 @@ const playersInfo = [ {
                 res.send("Data already exists")
             } else if (i === playersInfo.length - 1) {
                 playersInfo.push(input)
-                console.log(input)
+                console.log(playersInfo)
                 res.send({playersInfo})
             }
 
