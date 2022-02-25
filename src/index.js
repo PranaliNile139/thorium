@@ -8,11 +8,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzotr.mongodb.net/Pritesh87698-DB?retryWrites=true&w=majority", {
-    useNewUrlParser: true
-})
-.then( () => console.log("MongoDb is connected"))
-.catch ( err => console.log(err) )
+// mongoose.connect("mongodb+srv://taabish:*****@cluster0.cp3ka.mongodb.net/pranali139?authSource=admin&replicaSet=atlas-12xyw4-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true", {
+//     useNewUrlParser: true
+// })
+// .then( () => console.log("MongoDb is connected"))
+// .catch ( err => console.log(err) )
 
 app.use('/', route);
 
