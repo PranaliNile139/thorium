@@ -33,7 +33,7 @@ const priceUpdate = async function(req,res) {
 }
 
 const booksInPrice = async function(req,res) {
-    let books = await(await BookModel.find({price: {$gte: 60, $lte: 100}}).select({author_id:1, _id:0})).map(x => x.author_id)
+    let books = await(await BookModel.find({price: {$gte: 50, $lte: 100}}).select({author_id:1, _id:0})).map(x => x.author_id)
     console.log(books)
 
     let arr = []
