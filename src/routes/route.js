@@ -16,13 +16,24 @@ router.get("/getUsersData", UserController.getUsersData)
 
 router.post("/createBook", BookController.createBook  )
 
-router.get("/createAuthor", BookController.createAuthor)
+router.post("/createAuthor", BookController.createAuthor)
 
-router.post("/bookByChetan", BookController.bookByChetan)
+router.get("/bookByChetan", BookController.bookByChetan)
 
 router.post("/priceUpdate", BookController.priceUpdate)
 
-router.post("/booksInPrice", BookController.booksInPrice)
+router.get("/booksInPrice", BookController.booksInPrice)
+
+
+
+
+
+
+
+
+
+
+
 
 
 //MOMENT JS

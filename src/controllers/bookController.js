@@ -22,14 +22,14 @@ const bookByChetan = async function(req,res) {
 }
 
 const priceUpdate = async function(req,res) {
-    let update = re.body
+    let update = req.body
     let bookData = await BookModel.findOneAndUpdate(
         {name: "Two states"}, {$set: update}, {new: true}
     )
     let authorId = bookData.author_id
     let author = await AuthorModel.findOne({author_id: authorId}).select({author_name:1, _id:0})
     console.log(author)
-    res.send({author_name: author.author_name, price: bookData.price})
+    res.send({author_name: author.author_name, price: bookData.price })
 }
 
 const booksInPrice = async function(req,res) {
