@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const publisherSchema = new mongoose.Schema( {
     
     name: String,
@@ -10,4 +11,36 @@ const publisherSchema = new mongoose.Schema( {
 );
 
 
-module.exports = mongoose.model('newPublisher', publisherSchema)
+module.exports = mongoose.model('publisher1', publisherSchema)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const publisherSchema = new mongoose.Schema( {
+    
+//     name: String,
+//     headQuarter: String
+
+// },
+// { timestamps: true }
+// );
+
+
+// module.exports = mongoose.model('newPublisher', publisherSchema)

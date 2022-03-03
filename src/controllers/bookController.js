@@ -6,38 +6,74 @@ const mongoose = require("mongoose");
 
 
 const createBook= async function (req, res) {
-    let authorId = req.body.author_id
-    let publisherId = req.body.publisher_id
-    
-    const authorDetails = await authorModel.findById(authorId)
-    const publisherDetails = await publisherModel.findById(publisherId)
+    let book = req.body
+    const bookDetails = await bookModel.create(book)
+    return res.send({msg: bookDetails})
 
-    if(req.body.hasOwnProperty("author_id")) {
-        if(authorDetails === undefined) {
-            return res.send({msg: "Author is not present"})
-        } else {
-            if(req.body.hasOwnProperty("publisher_id")) {
-                if(publisherDetails === undefined) {
-                    return res.send({msg: "Publisher is not present"})
-                } else {
-                    let bookCreated = await bookModel.create(req.body)
-                    return res.send({data: bookCreated})
-                }
-            } else {
-                return res.send({msg: "Publisher id is required"})
-            }
-        }
-    }
-    else {
-        return res.send({msg: "Author id is required"})
-    }
-}
-
-const getBooks = async function (req, res) {
-    let allBooks = await bookModel.find().populate('author_id').populate('publisher_id');
-    res.send({data: allBooks});
 };
+
+const hardCover = async function (req, res) {
+    let allBooks = await publisherModel.find({name: {$in: ["Penguin", "HarperCollins"] } } )
+    let same = []
+    for(let i=0; i<allBooks.length; i++)
+        same.push(allBooks[i]._id)
+    let books = await bookModel.updateMany(
+        {publisher_id: {$in: same } },
+        {$set: req.body},
+        {$new: true}
+    )
+    res.send({data: books});    
+    }
+
+    const ratings = async function(req, res) {
+        let ratings = await authorModel.find( { rating: {$gt: 3.5} } )
+        let same = []
+        for(let i=0; i<ratings.length; i++)
+        same.push(ratings[i]._id)
+        let newBooks = await bookModel.updateMany(
+            {author_id: {$in: same}},
+            {$inc: req.body},
+            {$new: true}
+        )
+        let bookss = await bookModel.find({ author_id: {$in: same} } )
+        return res.send({msg: bookss})
+    }
 
 
 module.exports.createBook= createBook
-module.exports.getBooks = getBooks
+module.exports.hardCover = hardCover
+module.exports.ratings = ratings
+
+
+
+
+
+
+
+
+
+
+
+    // let authorId = req.body.author_id
+    // let publisherId = req.body.publisher_id
+
+    // if(!authorId) {
+    //     return res.send("AuthorId must be present")
+    // }
+
+    // const authorDetails = await authorModel.findById(authorId)    
+    // if(!authorDetails) {
+    //     return res.send("Author is not present")
+    // }
+
+    // if(!publisherId) {
+    //     return res.send("PublisherId must be present")
+    // }
+
+    // const publisherDetails = await publisherModel.findById(publisherId)
+    // if(!publisherDetails) {
+    //     return res.send("Publisher is not present")
+    // }
+    // let bookCreated = await bookModel.create(book)
+
+    // return res.send({data: bookCreated});
