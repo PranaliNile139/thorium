@@ -11,6 +11,14 @@ const BookController= require("../controllers/bookController")
 
 router.get("/middleware", function (req, res) {
     res.send("Finally it's working!")
+});
+
+router.get("/user", function (req, res) {
+    res.send("2nd API works perfect!")
+});
+
+router.get("/handler", function (req, res) {
+    res.send("3rd API works perfect!")
 })
 
 
