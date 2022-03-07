@@ -4,35 +4,41 @@ const router = express.Router();
 const UserController= require("../controllers/userController")
 const BookController= require("../controllers/bookController")
 const productController = require("../controllers/productController") 
-
+const middleware = require("../middleware/Middleware")
+const orderController = require("../controllers/orderController")
 router.get("/test-me", function (req, res) {
     res.send("My first ever api!")
 })
 
-let middleware = function(req,res,next) {
-    const free = req.headers["isFreeAppUser"]
-    // let isFreeAppUser = "false" 
-    if(!free) {
-    res.send("Request is missing")
-    next()
-    }
-    // next()
-}
+
 
 router.post("/createProduct", productController.createProduct)
-router.post("/createUser", middleware, UserController.createUser)
+
+router.post("/createUser", middleware.headerValidation, UserController.createUser)
+
+router.post("/createOrder", middleware.headerValidation, orderController.createOrder)
 
 
 
 
 
 
+
+
+  // let data = req.headers
+    // console.log(data)
+    
+    // if(data.hasOwnProperty("isfreeappuser")===false) {
+    // res.send("Request is missing")
+    // } else{
+    //     next()
+    // }
 
 
 
 router.post("/createUser", UserController.createUser  )
 
-router.get("/getUsersData", UserController.getUsersData)
+// router.get("/getUsersData", UserController.getUsersData)
 
 router.post("/createBook", BookController.createBook  )
 
