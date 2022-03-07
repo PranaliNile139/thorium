@@ -10,12 +10,13 @@ router.get("/test-me", function (req, res) {
 })
 
 let middleware = function(req,res,next) {
-    let isFreeAppUser = "true"
-    if(isFreeAppUser === true) {
-        next()
-    } else {
-        res.send("Request is missing")
+    const free = req.headers["isFreeAppUser"]
+    // let isFreeAppUser = "false" 
+    if(!free) {
+    res.send("Request is missing")
+    next()
     }
+    // next()
 }
 
 router.post("/createProduct", productController.createProduct)
