@@ -3,10 +3,31 @@ const router = express.Router();
 // const UserModel= require("../models/userModel.js")
 const UserController= require("../controllers/userController")
 const BookController= require("../controllers/bookController")
+const productController = require("../controllers/productController") 
 
 router.get("/test-me", function (req, res) {
     res.send("My first ever api!")
 })
+
+let middleware = function(req,res,next) {
+    let isFreeAppUser = "true"
+    if(isFreeAppUser === true) {
+        next()
+    } else {
+        res.send("Request is missing")
+    }
+}
+
+router.post("/createProduct", productController.createProduct)
+router.post("/createUser", middleware, UserController.createUser)
+
+
+
+
+
+
+
+
 
 router.post("/createUser", UserController.createUser  )
 

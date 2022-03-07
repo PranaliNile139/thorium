@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-mongoose.connect("mongodb+srv://functionup-cohort:G0Loxqc9wFEGyEeJ@cluster0.rzotr.mongodb.net/Pritesh8769811-DB?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://taabish:lkmgsyjhwbQYgkvX@cluster0.cp3ka.mongodb.net/pranali139?retryWrites=true&w=majority", {
     useNewUrlParser: true
 })
 .then( () => console.log("MongoDb is connected"))
@@ -20,12 +20,21 @@ let globalMiddleware = function(req, res, next){
     let contentTypeHeader = req.headers["content-type"]
     let name = "functionup"
     req.headers.organisation = name
+
+    let freeApp = "true"
+    req.headers.isFreeAppUser = freeApp
+    res.setHeader('isFreeAppUser', 'true')
+
     //console.log('content-type header is '+contentTypeHeader)
     console.log('After adding custom header '+JSON.stringify(req.headers))
-    console.log('Before adding custom response header '+JSON.stringify(res.getHeaders()))
-    res.setHeader('batch','thorium')
-    console.log('After adding custom response header '+JSON.stringify(res.getHeaders()))
-    req.newAtribute = 'India'
+    // console.log('Before adding custom response header '+JSON.stringify(res.getHeaders()))
+    // res.setHeader('isFreeAppUser','True')
+
+    // res.setHeader('batch','thorium')
+    // console.log('After adding custom response header '+JSON.stringify(res.getHeaders()))
+    // req.newAtribute = 'India'
+
+    
     let date = currentDate.getDate()
     let month = currentDate.getMonth() + 1
     let year = currentDate.getFullYear()
