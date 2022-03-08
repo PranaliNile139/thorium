@@ -36,4 +36,14 @@ If present, check that the token is valid.
 - Add this middleware at route level in the routes where applicable.
 
 
+ //JWT are JSON web tokens
+ //It is used as a secure way to authenticate users and share information
+ //It will generate code and that is unique
+ //By using same token key we have to verify it.
 
+*Sign-
+ //This allows the recipient of the token to validate that the token received contains
+ all of the information encoded by the issuer unmodified and as intended.
+
+ *tostring-
+ //Returns. String. A string containing the header and payload in JSON format.
