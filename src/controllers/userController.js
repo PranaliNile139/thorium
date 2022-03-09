@@ -1,12 +1,12 @@
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/userModel");
 
-const createUser = async function (abcd, xyz) {
+const createUser = async function (req, res) {
   
-  let data = abcd.body;
+  let data = req.body;
   let savedData = await userModel.create(data);
   // console.log(abcd.newAtribute);
-  xyz.send({ msg: savedData });
+  res.send({ msg: savedData });
 };
 
 
@@ -124,11 +124,11 @@ const postMessage = async function (req, res) {
 
 const deleteUser = async function(req,res) {
 
-//   let token = req.headers["x-Auth-token"];
-// if (!token) token = req.headers["x-auth-token"];
-// if (!token) return res.send({ status: false, msg: "token must be present" });
+  let token = req.headers["x-Auth-token"];
+if (!token) token = req.headers["x-auth-token"];
+if (!token) return res.send({ status: false, msg: "token must be present" });
 
-//   console.log(token);
+  console.log(token);
   
   let userId = req.params.userId;
   let userss = await userModel.findById(userId);
