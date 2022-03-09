@@ -124,11 +124,11 @@ const postMessage = async function (req, res) {
 
 const deleteUser = async function(req,res) {
 
-  let token = req.headers["x-Auth-token"];
-if (!token) token = req.headers["x-auth-token"];
-if (!token) return res.send({ status: false, msg: "token must be present" });
+//   let token = req.headers["x-Auth-token"];
+// if (!token) token = req.headers["x-auth-token"];
+// if (!token) return res.send({ status: false, msg: "token must be present" });
 
-  console.log(token);
+//   console.log(token);
   
   let userId = req.params.userId;
   let userss = await userModel.findById(userId);
