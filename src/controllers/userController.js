@@ -9,10 +9,12 @@ const createUser = async function (req, res) {
       let savedData = await userModel.create(data);
       res.status(201).send({ msg: savedData })
     }
-    else res.status(400).send({ msg: "BAD REQUEST"})
+    else {
+        res.status(400).send({ msg: "BAD REQUEST"})
+    }
 }
   catch(error) {
-      console.log("This is the error:", err.message)
+      console.log("This is the error:", error.message)
       res.status(500).send({msg: "Error", err: error.message})
   }
 }
@@ -22,6 +24,7 @@ const createUser = async function (req, res) {
 
 
 const loginUser = async function (req, res) {
+    try{
   let userName = req.body.emailId;
   let password = req.body.password;
 
@@ -41,8 +44,13 @@ const loginUser = async function (req, res) {
     "functionup-thorium"
   );
   res.setHeader("x-auth-token", token);
-  res.send({ status: true, data: token });
-};
+  res.status(201).send({ status: true, data: token });
+}
+catch(error) {
+    console.log("This is the error:", error.message)
+    res.status(500).send({msg: "Error", err: error.message})
+}
+}
 
 
 
@@ -53,20 +61,20 @@ const getUserData = async function (req, res) {
   if (!token) token = req.headers["x-auth-token"];
 
   //If no token is present in the request header return error
-  if (!token) return res.send({ status: false, msg: "token must be present" });
+//   if (!token) return res.send({ status: false, msg: "token must be present" });
 
-  console.log(token);
+//   console.log(token);
   
-  let decodedToken = jwt.verify(token, "functionup-thorium");
-  if (!decodedToken)
-    return res.send({ status: false, msg: "token is invalid" });
+//   let decodedToken = jwt.verify(token, "functionup-thorium");
+//   if (!decodedToken)
+//     return res.send({ status: false, msg: "token is invalid" });
 
   let userId = req.params.userId;
   let userDetails = await userModel.findById(userId);
   if (!userDetails)
-    return res.send({ status: false, msg: "No such user exists" });
+    return res.status(400).send({ status: false, msg: "No such user exists" });
 
-  res.send({ status: true, data: userDetails });
+  res.status(201).send({ status: true, data: userDetails });
 };
 
 
@@ -75,22 +83,22 @@ const getUserData = async function (req, res) {
 
 const updateUser = async function (req, res) {
 
-  let token = req.headers["x-Auth-token"];
-  if (!token) token = req.headers["x-auth-token"];
-  if (!token) return res.send({ status: false, msg: "token must be present" });
+//   let token = req.headers["x-Auth-token"];
+//   if (!token) token = req.headers["x-auth-token"];
+//   if (!token) return res.send({ status: false, msg: "token must be present" });
 
-  console.log(token);
+//   console.log(token);
 
   let userId = req.params.userId;
   let user = await userModel.findById(userId);
   //Return an error if no user with the given id exists in the db
   if (!user) {
-    return res.send("No such user exists");
+    return res.status(400).send("No such user exists");
   }
 
   let userData = req.body;
   let updatedUser = await userModel.findOneAndUpdate({ _id: userId }, {$set:userData},{new:true});
-  res.send({ status: updatedUser, data: updatedUser });
+  res.status(201).send({ status: updatedUser, data: updatedUser });
 };
 
 
@@ -100,22 +108,22 @@ const updateUser = async function (req, res) {
 const postMessage = async function (req, res) {
     let message = req.body.message
     
-    let token = req.headers["x-auth-token"]
-    if(!token) return res.send({status: false, msg: "token must be present in the request header"})
-    let decodedToken = jwt.verify(token, 'functionup-thorium')
+    // let token = req.headers["x-auth-token"]
+    // if(!token) return res.send({status: false, msg: "token must be present in the request header"})
+    // let decodedToken = jwt.verify(token, 'functionup-thorium')
 
-    if(!decodedToken) return res.send({status: false, msg:"token is not valid"})
+    // if(!decodedToken) return res.send({status: false, msg:"token is not valid"})
     
     //userId for which the request is made. In this case message to be posted.
-    let userToBeModified = req.params.userId
+    // let userToBeModified = req.params.userId
     //userId for the logged-in user
-    let userLoggedIn = decodedToken.userId
+    // let userLoggedIn = decodedToken.userId
 
     //userId comparision to check if the logged-in user is requesting for their own data
-    if(userToBeModified != userLoggedIn) return res.send({status: false, msg: 'User logged is not allowed to modify the requested users data'})
+    // if(userToBeModified != userLoggedIn) return res.send({status: false, msg: 'User logged is not allowed to modify the requested users data'})
 
     let user = await userModel.findById(req.params.userId)
-    if(!user) return res.send({status: false, msg: 'No such user exists'})
+    if(!user) return res.status(400).send({status: false, msg: 'No such user exists'})
     
     let updatedPosts = user.posts
     //add the message to user's posts
@@ -123,7 +131,7 @@ const postMessage = async function (req, res) {
     let updatedUser = await userModel.findOneAndUpdate({_id: user._id},{posts: updatedPosts}, {new: true})
 
     //return the updated user document
-    return res.send({status: true, data: updatedUser})
+    return res.status(201).send({status: true, data: updatedUser})
 }
 
 
@@ -141,11 +149,11 @@ const deleteUser = async function(req,res) {
   let userId = req.params.userId;
   let userss = await userModel.findById(userId);
   if(!userss) {
-    return res.send("No such user exists");
+    return res.status(400).send("No such user exists");
   }
 
   let deleteUser = await userModel.updateMany({ _id: userId}, { isDeleted: true});
-  res.send({data: deleteUser })
+  res.status(201).send({data: deleteUser })
 };
 
 
