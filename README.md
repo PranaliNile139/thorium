@@ -46,3 +46,8 @@ Create API's to do each of the following:
                     "url": "https://i.imgflip.com/5mvxax.jpg",
                     "page_url": "https://imgflip.com/i/5mvxax"
                 }
+
+
+
+
+//http://localhost:3000/weather/getWeather?q=London&appid=4ee4b654130634e1c6cf6087467c302a
