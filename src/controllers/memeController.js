@@ -2,7 +2,6 @@ let axios = require("axios")
 
 let memes = async function(req,res) {
     try{
-        // let id = req.query.id
         let options = {
             method: "post",
             url: `https://api.imgflip.com/get_memes`

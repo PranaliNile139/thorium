@@ -27,7 +27,7 @@ let getCities = async function (req, res) {
         let appid = req.query.appid
         let arrays = []
         for (i = 0; i < cities.length; i++) {
-            let sort = { city: cities[i] }
+            let sort = { city: cities[i] } //{city: Bangalore}
             
             let options = {
                 method: "get",
@@ -35,9 +35,9 @@ let getCities = async function (req, res) {
             }
             let result = await axios(options)
             sort.temp = result.data.main.temp
-            arrays.push(sort)
+            arrays.push(sort) //{city: Bangalore, temp: 250}
         }
-        let citiesTemp= arrays.sort(function (a, b) { return (a.temp - b.temp) })
+        let citiesTemp= arrays.sort(function (a, b) { return (a.temp - b.temp) }) 
              res.status(200).send({status:true, data: citiesTemp})
     }
     catch (err) {
