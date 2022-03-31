@@ -19,7 +19,8 @@ router.get('/books',auth.auth, bookController.getBook)
 
 router.get('/books/:bookId',auth.auth, bookController.getBookWithReview)
 
-router.put('/books/:bookId',auth.auth, bookController.updateBooks)
+router.put('/books/:bookId', bookController.updateBooks)
+// router.put('/books/:bookId',auth.auth, bookController.updateBooks)
 
 router.delete('/books/:bookId',auth.auth, bookController.deleteBook)
 

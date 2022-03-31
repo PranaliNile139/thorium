@@ -111,7 +111,7 @@ const createBook = async function(req,res) {
         };
 
         let savedBook = await bookModel.create(bookData);
-        res.status(201).send({status: true, msg: "New book created", data: savedBook})
+        return res.status(201).send({status: true, msg: "New book created", data: savedBook})
     }
     catch (err) {
         console.log("This is the error :", err.message)
@@ -393,7 +393,7 @@ const deleteBook = async function(req,res){
 
           let data =await bookModel.findById(bookId)
           if(data.isDeleted == true){
-              return res.status(400).send({ status: false, msg: "This book is already deleted" })
+              return res.status(404).send({ status: false, msg: "This book is already deleted" })
           }
           
           if(data.isDeleted == false){

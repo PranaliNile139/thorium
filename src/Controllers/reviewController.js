@@ -117,12 +117,12 @@ const updateReview = async function(req, res){
 
         let book = await bookModel.findOne({_id:bookId, isDeleted: false})
         if(!book) {
-            return res.status(400).send({status: false, msg: "Book doesnot exist"})
+            return res.status(404).send({status: false, msg: "Book doesnot exist"})
         }
 
         let reviewData = await reviewModel.findOne({_id: reviewId, isDeleted: false})
         if(!reviewData) {
-            return res.status(400).send({ status: false,msg: "review doesnot exist"})
+            return res.status(404).send({ status: false,msg: "review doesnot exist"})
         } 
         
 
