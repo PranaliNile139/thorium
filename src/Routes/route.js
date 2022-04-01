@@ -19,8 +19,7 @@ router.get('/books',auth.auth, bookController.getBook)
 
 router.get('/books/:bookId',auth.auth, bookController.getBookWithReview)
 
-router.put('/books/:bookId', bookController.updateBooks)
-// router.put('/books/:bookId',auth.auth, bookController.updateBooks)
+router.put('/books/:bookId',auth.auth, bookController.updateBooks)
 
 router.delete('/books/:bookId',auth.auth, bookController.deleteBook)
 
@@ -31,5 +30,5 @@ router.put('/books/:bookId/review/:reviewId', reviewController.updateReview)
 
 router.delete('/books/:bookId/review/:reviewId', reviewController.deleteReview)
 
-
+ 
 module.exports = router;

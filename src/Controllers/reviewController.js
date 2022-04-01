@@ -23,10 +23,10 @@ const bookReview = async function (req, res) {
             return res.status(400).send({ status: false, message: 'Provide review body.' })
         }
 
-        // Validate reviewedBy
-        if (!validator.isValid(reviewedBy)) {
-            return res.status(400).send({ status: false, message: "Reviewer's name is required" })
-        }
+        // // Validate reviewedBy
+        // if (!validator.isValid(reviewedBy)) {
+        //     return res.status(400).send({ status: false, message: "Reviewer's name is required" })
+        // }
 
         // Validate reviewedAt
         if(!validator.isValid(reviewedAt)) {
@@ -92,7 +92,7 @@ const updateReview = async function(req, res){
         let bookId = req.params.bookId
         let reviewId = req.params.reviewId
 
-        // Validate body
+        // Validate body 
         if (!validator.isValidBody(body)) {
             return res.status(400).send({ status: false, message: 'Provide review body.' })
         }

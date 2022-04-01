@@ -6,9 +6,7 @@ const auth = async function (req, res, next) {
   try {
     let token = req.headers["x-api-key"];
     if (!token) {
-      return res
-        .status(400)
-        .send({ Status: false, msg: "Token must be present" });
+      return res.status(400).send({ Status: false, msg: "Token must be present" });
     }
 
     let decodedToken = jwt.verify(token, "Group38");
@@ -18,9 +16,7 @@ const auth = async function (req, res, next) {
 
     if ((userId = req.body.userId)) {
       if (decodedToken.userId != req.body.userId)
-        return res
-          .status(400)
-          .send({ status: false, msg: "You are not authorised user" });
+        return res.status(400).send({ status: false, msg: "You are not authorised user" });
     }
 
     if ((bookId = req.params.bookId)) {
@@ -30,9 +26,7 @@ const auth = async function (req, res, next) {
       }
       let book = await bookModel.findOne({ _id: req.params.bookId });
       if (decodedToken.userId != book.userId)
-        return res
-          .status(400)
-          .send({ status: false, msg: "You are not authorised user b" });
+        return res.status(400).send({ status: false, msg: "You are not authorised user b" });
     }
 
     next();
@@ -43,33 +37,3 @@ const auth = async function (req, res, next) {
 };
 
 module.exports.auth = auth
-
-
-
-
-
-// const jwt = require('jsonwebtoken')
-
-// const auth = function (req, res, next) {
-//     try {
-//         let token = req.headers['x-api-key']
-//         if (!token) {
-//             return res.status(401).send({ status: false, msg: "no authentication token" })
-//         } else {
-//             let decodeToken = jwt.verify(token, 'Group38')
-//             if (decodeToken) {
-//                 req.decodeToken = decodeToken
-//                 next()
-
-//             } else {
-//                 res.status(401).send({ status: false, msg: "not a valid token" })
-//             }
-//         }
-
-//     } catch (error) {
-//         res.status(500).send({ status: false, msg: error })
-//     }
-
-
-// }
-// module.exports.auth=auth

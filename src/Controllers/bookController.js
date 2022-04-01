@@ -10,7 +10,7 @@ const validator = require('../Validator/validation');
 
 const createBook = async function(req,res) {
     try {
-        const body =req.body;
+        const body =req.body; 
 
         const query = req.query;
         if(validator.isValidBody(query)) {
@@ -253,6 +253,11 @@ const updateBooks = async function (req, res) {
     let bookId = req.params.bookId
     if(!bookId) return res.status(400).send({status:false, msg:"bookId is required"})
 
+     //Validate body
+     if (!validator.isValidBody(body)) {
+        return res.status(400).send({ status: false, msg: "body should not be empty" });
+    }
+
     // Query must not be present
     const query = req.query;
     if(validator.isValidBody(query)) {
@@ -278,18 +283,6 @@ const updateBooks = async function (req, res) {
     req.body.subcategory = subcategory
 
 }
-// if(subcategory) {
-//     if(!Object.prototype.hasOwnProperty.call(updateBookData, '$addToSet')) updateBookData['$addToSet']={}
-    
-//     if(Array.isArray(subcategory)){
-//         updateBookData['$addToSet']['subcategory'] = {$each: [...subcategory]}
-//     }
-//     if(typeof subcategory === "string") {
-//         updateBookData['addToSet']['subcategory'] =subcategory
-//     }
-// }
-
-
     let updatedBook = await bookModel.findByIdAndUpdate({_id:bookId, isDeleted:false}, req.body,{new:true})
      return res.status(200).send({status:true, data:updatedBook})
 
@@ -301,77 +294,6 @@ const updateBooks = async function (req, res) {
 }
 
 module.exports.updateBooks = updateBooks
-
-
-
-// const updateBooks = async function (req, res) {
-
-// try {
-//     let filter = {
-//         _id: req.params.bookId,
-//         isDeleted: false,
-//         userId: req.decodeToken._id
-//     }
-//     let update = {}
-
-//     if (!validator.isValidBody(req.body)) {
-//         return res.status(400).send({ status: false, msg: 'body is empty' })
-
-//     }
-//     const book = await bookModel.findOne({ _id: _id, isDeleted: false })
-
-//     if (!book) {
-//         return res.status(404).send({ status: false, msg: `Book not found` })
-//     }
-
-//     if (book.userId.toString() !== req.decodeToken._id) {
-//         return res.status(401).send({ status: false, msg: `Unauthorized access!` });
-
-//     }
-//     let { title, excerpt, releasedAt, ISBN } = req.body
-
-//     if (title) {
-//         if (!validator.isValid(title)) {
-//             return res.status(400).send({ status: false, msg: 'title is not valid' })
-//         }
-//         update['title'] = title
-//     }
-
-//     if (excerpt) {
-//         if (!validator.isValid(excerpt)) {
-//             return res.status(400).send({ status: false, msg: 'excerpt is not valid ' })
-//         }
-//         update['excerpt'] = excerpt
-//     }
-
-//     if (ISBN) {
-//         if (!validator.isValid(ISBN)) {
-//             return res.status(400).send({ status: false, message: 'ISBN is not valid ' })
-//         }
-//         update['ISBN'] = ISBN
-//     }
-
-//     if (releasedAt) {
-//         if (!validator.isValid(releasedAt)) {
-//             return res.status(400).send({ status: false, message: 'releasedAt is not valid value ' })
-//         }
-//         if (!validator.isValidDate(releasedAt)) {
-//             return res.status(400).send({ status: false, message: ' Date is not in the form of \"YYYY-MM-DD\" ' })
-//         }
-//     }
-
-//     let updatedBook = await bookModel.findOneAndUpdate(filter, update, { new: true })
-//     if (updatedBook) {
-//         return res.status(200).send({ status: true, message: "success", data: updatedBook })
-//     }
-
-// } catch (err) {
-//     console.log("This is the error :", err.message)
-//     res.status(500).send({ msg: "Error", error: err.message })
-// }
-// }
-
-// module.exports.updateBooks = updateBooks
 
 
 
@@ -412,42 +334,6 @@ module.exports.deleteBook = deleteBook
 
 
 
-
-// const deleteBook = async function(req,res){
-// try {
-
-//     if (!(validator.isValid(req.params.bookId) && validator.isValidobjectId(req.params.bookId))) {
-//         return res.status(400).send({ status: false, msg: "bookId is not valid" })
-//     }
-
-//     let filter = {
-//         isDeleted: false,
-//         _id: req.params.bookId,
-//         userId: req.decodeToken._id
-//     }
-//     const book = await bookModel.findOne({ _id: req.params.bookId, isDeleted: false })
-
-//     if (!book) {
-//         return res.status(404).send({ status: false, message: `Book not found` })
-//     }
-
-//     if (book.userId.toString() !== req.decodeToken._id) {
-//         return res.status(401).send({ status: false, message: `Unauthorized access!` });
-
-//     }
-//     let deletedBook = await bookModel.findOneAndUpdate(filter, { isDeleted: true, deletedAt: new Date() })
-//     if (deletedBook) {
-//         return res.status(200).send({ status: true, msg: "book is successfully deleted" })
-//     }
-// } catch (err) {
-//     console.log("This is the error :", err.message)
-//     res.status(500).send({ msg: "Error", error: err.message })
-// }
-// }
-
-
-
-// module.exports.deleteBook = deleteBook
 
 
 ////////////////////////////////////////////////////////// END OF BOOK CONTROLLER //////////////////////////////////////////////////////////////

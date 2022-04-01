@@ -16,7 +16,7 @@ const createUser = async function(req,res) {
 
         const {title,name,phone,email,password,address} = body;
 
-        //Validate body
+        //Validate body 
         if (!validator.isValidBody(body)) {
             return res.status(400).send({ status: false, msg: "User body should not be empty" });
         }

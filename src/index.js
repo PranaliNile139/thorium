@@ -18,6 +18,6 @@ app.use('/', route);
 
 
 app.listen(process.env.PORT || 3000, function () {
+    // console.log(process.env.port)
     console.log('Express app running on port ' + (process.env.PORT || 3000))
 });
-
