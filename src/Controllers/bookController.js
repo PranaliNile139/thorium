@@ -253,6 +253,7 @@ const updateBooks = async function (req, res) {
     let bookId = req.params.bookId
     if(!bookId) return res.status(400).send({status:false, msg:"bookId is required"})
 
+    let body = req.body
      //Validate body
      if (!validator.isValidBody(body)) {
         return res.status(400).send({ status: false, msg: "body should not be empty" });
