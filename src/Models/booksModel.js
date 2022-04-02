@@ -3,6 +3,11 @@ const ObjectId = mongoose.Schema.Types.ObjectId
 
 
 const BooksSchema = new mongoose.Schema({
+
+    bookCover: {
+        type:String,
+        required: true
+    },
     title: {
         type: String,
         required: true,
@@ -64,11 +69,6 @@ const BooksSchema = new mongoose.Schema({
         required:true,
         // default: Date.now(),
     },
-    
-    bookCover: {
-        type:String,
-        required: true
-    }
 
 
 }, { timestamps: true })
