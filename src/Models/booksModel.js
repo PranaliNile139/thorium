@@ -63,6 +63,11 @@ const BooksSchema = new mongoose.Schema({
         type: Date,
         required:true,
         // default: Date.now(),
+    },
+    
+    bookCover: {
+        type:String,
+        required: true
     }
 
 

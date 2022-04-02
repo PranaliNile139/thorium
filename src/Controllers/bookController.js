@@ -4,6 +4,64 @@ const reviewModel =require("../Models/reviewModel");
 const mongoose = require("mongoose");
 const validator = require('../Validator/validation');
 
+// // const removeUploadedFiles = require('multer/lib/remove-uploaded-files');
+// const aws = require("aws-sdk")
+
+// aws.config.update(
+//     {
+//         accessKeyId: "AKIAY3L35MCRVFM24Q7U",
+//         secretAccessKeyId: "qGG1HE0qRixcW1T1Wg1bv+08tQrIkFVyDFqSft4J",
+//         region: "ap-south-1"
+//     }
+// );
+
+// let uploadFile = async (file) => {
+//     return new Promise( function(resolve, reject) {
+//         //this function will upload file to aws and return the link
+//         let s3 = new aws.S3({ apiVersion: "2006-03-01" }) //we will be using s3 service of aws
+//         //  await uploadFile(files[0])
+//         var uploadParams = {
+//             ACL: "public-read",
+//             Bucket: "classroom-training-bucket", // HERE
+//             Key: "pranali/" + file.originalname, // HERE "pranali/bookCover.jpg"
+//             Body: file.buffer
+//         };
+
+//         s3.upload(uploadParams, function (err, data) {
+//             if (err) { 
+//                 return reject({ "error": err }) 
+//             }
+
+//             console.log(data)
+//             console.log(" file uploaded succesfully ")
+//             return resolve(data.Location) // HERE
+//           })
+//     })
+// }
+
+
+// let bookCoverURL =  async function (req, res) {
+//     try {
+//         let files = req.files
+//         if (files && files.length > 0) {
+//             //upload to s3 and get the uploaded link
+//             // res.send the link back to frontend/postman
+//             let uploadedFileURL = await uploadFile(files[0])
+//             res.status(201).send({status: true, msg: "file uploaded succesfully", data: uploadedFileURL })
+//         }
+//         else {
+//             res.status(400).send({status: false, msg: "No file found" })
+//         }
+//     }
+//     catch (err) {
+//         console.log("This is the error :", err.message)
+//         return res.status(500).send({ msg: "Error", error: err.message })
+//     }
+// }
+
+// module.exports.bookCoverURL = bookCoverURL
+
+
 
 
 //  ************************************************************* POST /books ************************************************************* //
